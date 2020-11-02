@@ -10,7 +10,7 @@ class ShopController extends Controller
     public function index()
     {
      //   $product = Product::all();
-     $products = Product::latest()->paginate(4);
+     $products = Product::latest()->paginate(10);
        return view('shop.index', compact('products'));
     }
 
@@ -31,32 +31,33 @@ class ShopController extends Controller
          ->with('success','product added successflly');
     }
 
-    public function show(Product $product,$id)
+    public function show(Product $product)
     {
         return view('shop.show', compact('product'));
     }
 
     public function edit(Product $product,$id)
     {
-        return view('shop.edit', compact('product'));
+        $product = Product::find($id);
+        return view('shop.edit', compact('product','id'));
     }
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Product $product, $id)
     {
-        $request->validate([
-            'name'=>'required',
-            'price'=>'required',
-            'detail'=>'required'
-        ]);
+        $product = Product::find($id);
+        $product->name        = $request->input('name');
+        $product->price      = $request->input('price');
+        $product->detail  = $request->input('detail');
 
-        $product->update($request->all());
+        $product->save();
          return redirect()->route('shop.index')
-         ->with('success','product updated successflly') ;
+         ->with('success','product updated successflly');
     }
 
-    public function destroy(Product $product,$id)
+    public function destroy($id)
     {
-        $product->delete($id);
-        return redirect()->route('shop.index')
-        ->with('success','product deleted successflly');
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->back()
+        ->with('success_delete','product deleted successflly');
     }
 }

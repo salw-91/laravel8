@@ -14,6 +14,11 @@
       {{$message}}
       </div>
     @endif
+    @if ($message = Session::get('success_delete'))
+    <div class="alert alert-danger" role="alert">
+        {{$message}}
+    </div>
+    @endif
 
 </div>
 

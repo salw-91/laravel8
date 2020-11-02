@@ -6,8 +6,9 @@
     <div class="card">
         <div class="card-body">
           Create product.
-          {{$name}}
-        {{-- <form action="{{route('shop.update')}}" method="POST">
+          {{$id}}
+          {{$product->name}}
+        <form action="{{route('shop.update', $product->id )}}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -24,7 +25,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
 
-      </form> --}}
+      </form>
     </div>
 </div>
 
