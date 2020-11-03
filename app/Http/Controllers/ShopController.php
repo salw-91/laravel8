@@ -31,8 +31,9 @@ class ShopController extends Controller
             ->with('success', 'product added successflly');
     }
 
-    public function show(Product $product)
+    public function show(Product $product, $id)
     {
+        $product = Product::find($id);
         return view('shop.show', compact('product'));
     }
 

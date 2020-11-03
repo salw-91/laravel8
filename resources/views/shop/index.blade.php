@@ -29,8 +29,7 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Price</th>
-            <th scope="col">Detail</th>
-            <th scope="col">Edit</th>
+            <th scope="col-md-auto">Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -39,19 +38,19 @@
           <tr>
             <th scope="row">{{$item->id}}</th>
             <td>{{$item->name}}</td>
-            <td>{{$item->price}}</td>
-            <td>{{$item->detail}}</td>
+            <td>{{$item->price}} €</td>
+            {{-- <td>{{$item->detail}}</td> --}}
             <td>
                 <div class="row">
-                    <div class="col-sm">
+                    <div class="col-md-auto">
                         <a class="btn btn-success" href="{{route('shop.edit',$item->id)}}">Edit</a>
 
                     </div>
-                    <div class="col-sm">
+                    <div class="col-md-auto">
                         <a  class="btn btn-primary" href="{{route('shop.show',$item->id)}}">Show</a>
 
                     </div>
-                    <div class="col-sm">
+                    <div class="col-md-auto">
                         <form action="{{ route('shop.destroy',$item->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
