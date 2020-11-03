@@ -12,4 +12,6 @@ Route::get('/test', function () {
 
 // Shop
 Route::resource('shop', 'ShopController');
+Route::get('shop/soft/delete/{id}', 'ShopController@softDeletes')
+->name('soft.delete');
 

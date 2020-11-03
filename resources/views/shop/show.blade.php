@@ -8,19 +8,19 @@
           Create product.
           {{-- {{$id}}
           {{$product->name}} --}}
-        <form action="{{route('shop.index')}}" >
+        <form action="{{route('shop.index')}}">
         @csrf
         <div class="form-group">
-          <label>Name</label>
+          <label><b>Name</b> </label>
           <p>{{$product->name}}</p>
         </div>
         <div class="form-group">
-          <label>Price</label>
+          <label><b>Price</b></label>
           <p>{{$product->price}}</p>
         </div>
         <div class="form-group">
 
-          <label >Detail</label>
+          <label ><b>Detail</b></label>
           <p>{!!$product->detail!!}</p>
         </div>
         <button type="submit" class="btn btn-primary">Back</button>

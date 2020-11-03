@@ -61,4 +61,11 @@ class ShopController extends Controller
         return redirect()->back()
             ->with('success_delete', 'product deleted successflly');
     }
+
+    public function softDeletes($id)
+    {
+        $product = Product::find($id)->delete();
+        return redirect()->back()
+            ->with('success_delete', 'product soft deleted successflly');
+    }
 }

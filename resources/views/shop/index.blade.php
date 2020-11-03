@@ -44,12 +44,15 @@
                 <div class="row">
                     <div class="col-md-auto">
                         <a class="btn btn-success" href="{{route('shop.edit',$item->id)}}">Edit</a>
-
                     </div>
+
                     <div class="col-md-auto">
                         <a  class="btn btn-primary" href="{{route('shop.show',$item->id)}}">Show</a>
-
                     </div>
+                    <div class="col-md-auto">
+                        <a  class="btn btn-warning" href="{{route('soft.delete',$item->id)}}">Soft Delete</a>
+                    </div>
+
                     <div class="col-md-auto">
                         <form action="{{ route('shop.destroy',$item->id)}}" method="POST">
                             @csrf
