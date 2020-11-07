@@ -1,4 +1,4 @@
-@extends('shop.layout')
+@extends('layouts.app')
 
 @section('content')
 
@@ -6,8 +6,7 @@
     <div class="card">
         <div class="card-body">
           Create product.
-          {{-- {{$id}}
-          {{$product->name}} --}}
+
         <form action="{{route('shop.index')}}">
         @csrf
         <div class="form-group">

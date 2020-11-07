@@ -12,6 +12,11 @@ Route::get('/test', function () {
 
 // Shop
 Route::resource('shop', 'ShopController');
-Route::get('shop/soft/delete/{id}', 'ShopController@softDeletes')
-->name('soft.delete');
+Route::get('product/soft/delete/{id}', 'ShopController@softDeletes')->name('soft.delete');
+Route::get('product/trash', 'ShopController@trashedProducts')->name('shop.trash');
+Route::get('product/return/trash/{id}', 'ShopController@ReturnFromSoftDeletes')->name('shop.return.trash');
+Route::get('product/hard/delete/{id}', 'ShopController@hardDeletes')->name('shop.hard.delete');
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

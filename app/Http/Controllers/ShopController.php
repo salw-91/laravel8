@@ -9,9 +9,14 @@ class ShopController extends Controller
 {
     public function index()
     {
-        //   $product = Product::all();
         $products = Product::latest()->paginate(10);
         return view('shop.index', compact('products'));
+    }
+
+    public function trashedProducts()
+    {
+        $products = Product::onlyTrashed()->latest()->paginate(4);
+        return view('shop.trash', compact('products'));
     }
 
     public function create()
@@ -56,8 +61,8 @@ class ShopController extends Controller
 
     public function destroy($id)
     {
-        $product = Product::find($id);
-        $product->delete();
+        $product = Product::find($id)->delete();
+        // $product->delete();
         return redirect()->back()
             ->with('success_delete', 'product deleted successflly');
     }
@@ -67,5 +72,19 @@ class ShopController extends Controller
         $product = Product::find($id)->delete();
         return redirect()->back()
             ->with('success_delete', 'product soft deleted successflly');
+    }
+
+    public function hardDeletes($id)
+    {
+        $product =  Product::onlyTrashed()->where('id', $id)->forceDelete();
+        return redirect()->back()
+            ->with('success_delete', 'product hard deleted successflly');
+    }
+
+    public function ReturnFromSoftDeletes($id)
+    {
+        $product = Product::onlyTrashed()->where('id', $id)->first()->restore();
+        return redirect()->back()
+            ->with('success', 'product return successflly');
     }
 }

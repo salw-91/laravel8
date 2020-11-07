@@ -1,10 +1,13 @@
-@extends('shop.layout')
+@extends('layouts.app')
 
 @section('content')
 <div class="jumbotron container">
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <p class="lead">
       <a class="btn btn-primary btn-lg" href="{{route('shop.create')}}" role="button">Create</a>
+    {{-- @if (Product::all()->deleted_at !== null) --}}
+      <a class="btn btn-warning btn-lg" href="{{route('shop.trash')}}" role="button">Soft Deleted</a>
+    {{-- @endif --}}
     </p>
   </div>
 
@@ -54,11 +57,13 @@
                     </div>
 
                     <div class="col-md-auto">
-                        <form action="{{ route('shop.destroy',$item->id)}}" method="POST">
+                        {{-- <a  class="btn btn-danger" href="{{ route('shop.hard.destroy',$item->id)}}">Hard Delete</a> --}}
+
+                        {{-- <form action="{{ route('shop.destroy',$item->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                            </form> --}}
                     </div>
                 </div>
 
