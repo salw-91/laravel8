@@ -5,8 +5,7 @@
 <div class="container pt-4">
     <div class="card">
         <div class="card-body">
-          Create product.
-          {{$id}}
+          Edit product.
           {{$product->name}}
         <form action="{{route('shop.update', $product->id )}}" method="POST">
         @csrf
