@@ -50,12 +50,6 @@ class ProfileController extends Controller
         $user->save();
         $user->profile->save();
 
-     //   dd($request->all());
-        // if ($request->has('password')) {
-        //     $user->password = Hash::make($request->password);
-        //     $user->save();
-        // }
-
      return redirect()->back();
     }
 
