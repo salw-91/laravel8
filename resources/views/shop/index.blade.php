@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
+@auth
 <div class="jumbotron container">
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <p class="lead">
@@ -10,7 +12,7 @@
     {{-- @endif --}}
     </p>
   </div>
-
+@endif
   <div class="container">
     @if ($message = Session::get('success'))
     <div class="alert alert-primary" role="alert">
@@ -45,6 +47,7 @@
             {{-- <td>{{$item->detail}}</td> --}}
             <td>
                 <div class="row">
+                    @auth
                     <div class="col-md-auto">
                         <a class="btn btn-success" href="{{route('shop.edit',$item->id)}}">Edit</a>
                     </div>
@@ -55,7 +58,11 @@
                     <div class="col-md-auto">
                         <a  class="btn btn-warning" href="{{route('soft.delete',$item->id)}}">Soft Delete</a>
                     </div>
-
+                    @else
+                    <div class="col-md-auto">
+                        <a  class="btn btn-primary" href="{{route('shop.show',$item->id)}}">Show</a>
+                    </div>
+                    @endif
                     <div class="col-md-auto">
                         {{-- <a  class="btn btn-danger" href="{{ route('shop.hard.destroy',$item->id)}}">Hard Delete</a> --}}
 
@@ -73,5 +80,6 @@
         </tbody>
       </table>
       {{ $products->links() }}
+  </div>
   </div>
 @endsection

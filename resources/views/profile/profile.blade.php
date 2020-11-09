@@ -36,6 +36,7 @@
             <div class="col-md-2">
                 {{-- <a class="profile-edit-btn" href="{{route('profile.update')}}">test</a> --}}
                 <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+
             </div>
         </div>
         <div class="row">
@@ -141,7 +142,11 @@
                                 <textarea name="link" id="" cols="23" rows="4">{!! $user->profile->link !!}</textarea>
                                     {{-- <input type="text" name="link" value=""> --}}
                                 </div>
-
+                                @if (Route::has('password.request'))
+                                <a class="profile-edit-btn" href="{{ route('password.request') }}">
+                                    {{ __('Forgot Your Password?') }}
+                                </a>
+            @endif
                             </div>
                         </div>
                     </div>
