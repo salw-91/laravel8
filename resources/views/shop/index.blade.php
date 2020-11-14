@@ -4,8 +4,7 @@
 <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
 @auth
 <div class="jumbotron container">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
+    <h1 class="display-4">All Products  </h1>    <p class="lead">
       <a class="btn btn-primary btn-lg" href="{{route('shop.create')}}" role="button">Create</a>
     {{-- @if (Product::all()->deleted_at !== null) --}}
       <a class="btn btn-warning btn-lg" href="{{route('shop.trash')}}" role="button">Soft Deleted</a>

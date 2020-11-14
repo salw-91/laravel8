@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-@auth
-<div class="jumbotron container">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="{{route('posts.create')}}" role="button">Create</a>
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="jumbotron">
+            <h1 class="display-4">All Posts  </h1>
+        <a class="btn btn-primary btn-lg" href="{{route('posts.create')}}"> Create</a>
+        <a class="btn btn-warning btn-lg" href="{{route('post.trashed')}}"> Trash </a>
+           </div>
+      </div>
+    </div>
+    <div class="row">
 
-      <a class="btn btn-warning btn-lg" href="{{route('post.trashed')}}" role="button">Soft Deleted</a>
-
-    </p>
-  </div>
-@endif
   <div class="container">
     @if ($message = Session::get('success'))
     <div class="alert alert-primary" role="alert">
@@ -27,40 +27,42 @@
 
 </div>
 
-  <div class="container">
+<div class="col">
     <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col-md-auto">Edit</th>
+            <th scope="col"  class="text-center">#</th>
+            <th scope="col"  class="text-center">Name</th>
+            <th scope="col"  class="text-center">Price</th>
+            <th scope="col"  class="text-center">photo</th>
+            <th scope="col" class="text-center">Edit</th>
           </tr>
         </thead>
         <tbody>
             @foreach ($posts as $item )
-
           <tr>
-            <th scope="row">{{$item->id}}</th>
-            <td>{{$item->name}}</td>
-            <td>{{$item->price}} €</td>
-            {{-- <td>{{$item->detail}}</td> --}}
-            <td>
-                <div class="row">
+            <th scope="row"  class="text-center">{{$item->id}}</th>
+            <td  class="text-center">{{$item->title}}</td>
+            <td  class="text-center">{{$item->body}} </td>
+            <td  class="text-center"><img src="{{URL::asset($item->photo)}}" alt="{{$item->photo}}"
+                class="img-tumbnail" width="100" height="100"></td>
+
+            <td  class="text-center">
+                <div class="row justify-content-center">
                     @auth
                     <div class="col-md-auto">
-                        <a class="btn btn-success" href="{{route('post.edit',$item->id)}}">Edit</a>
+                        <a class="btn btn-success" href="{{route('posts.edit',$item->id)}}">Edit</a>
                     </div>
 
                     <div class="col-md-auto">
-                        <a  class="btn btn-primary" href="{{route('post.show',$item->id)}}">Show</a>
+                        <a  class="btn btn-primary" href="{{route('posts.show',$item->slug)}}">Show</a>
                     </div>
                     <div class="col-md-auto">
-                        <a  class="btn btn-warning" href="{{route('post.destroy',$item->id)}}">Soft Delete</a>
+                        <a  class="btn btn-warning" href="{{route('posts.destroy',$item->id)}}">Soft Delete</a>
                     </div>
                     @else
                     <div class="col-md-auto">
-                        <a  class="btn btn-primary" href="{{route('post.show',$item->id)}}">Show</a>
+                        <a  class="btn btn-primary" href="{{route('posts.show',$item->slug)}}">Show</a>
                     </div>
                     @endif
                     <div class="col-md-auto">

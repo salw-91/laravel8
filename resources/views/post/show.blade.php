@@ -7,20 +7,23 @@
         <div class="card-body">
           Create product.
 
-        <form action="{{route('shop.index')}}">
+        <form action="{{route('posts.index')}}">
         @csrf
         <div class="form-group">
           <label><b>Name</b> </label>
-          <p>{{$product->name}}</p>
+          <p>{{$post->title}}</p>
         </div>
         <div class="form-group">
           <label><b>Price</b></label>
-          <p>{{$product->price}}</p>
+          <p>{{$post->body}}</p>
         </div>
         <div class="form-group">
 
           <label ><b>Detail</b></label>
-          <p>{!!$product->detail!!}</p>
+          <img src="{{URL::asset($post->photo)}}" alt="{{$post->photo}}"
+          class="img-tumbnail"  width="25%" height="25%">
+
+          <p>{{$post->image}}</p>
         </div>
         <button type="submit" class="btn btn-primary">Back</button>
 
