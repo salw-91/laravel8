@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -8,7 +10,8 @@ class PostController extends Controller
 
     public function index()
     {
-        return ('index');
+        $posts = Post::latest()->paginate(10);
+        return view('post/index', compact('posts'));
     }
 
     public function trashed()

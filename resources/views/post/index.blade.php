@@ -1,0 +1,85 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
+@auth
+<div class="jumbotron container">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="{{route('posts.create')}}" role="button">Create</a>
+
+      <a class="btn btn-warning btn-lg" href="{{route('post.trashed')}}" role="button">Soft Deleted</a>
+
+    </p>
+  </div>
+@endif
+  <div class="container">
+    @if ($message = Session::get('success'))
+    <div class="alert alert-primary" role="alert">
+      {{$message}}
+      </div>
+    @endif
+    @if ($message = Session::get('success_delete'))
+    <div class="alert alert-danger" role="alert">
+        {{$message}}
+    </div>
+    @endif
+
+</div>
+
+  <div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col-md-auto">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+            @foreach ($posts as $item )
+
+          <tr>
+            <th scope="row">{{$item->id}}</th>
+            <td>{{$item->name}}</td>
+            <td>{{$item->price}} €</td>
+            {{-- <td>{{$item->detail}}</td> --}}
+            <td>
+                <div class="row">
+                    @auth
+                    <div class="col-md-auto">
+                        <a class="btn btn-success" href="{{route('post.edit',$item->id)}}">Edit</a>
+                    </div>
+
+                    <div class="col-md-auto">
+                        <a  class="btn btn-primary" href="{{route('post.show',$item->id)}}">Show</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a  class="btn btn-warning" href="{{route('post.destroy',$item->id)}}">Soft Delete</a>
+                    </div>
+                    @else
+                    <div class="col-md-auto">
+                        <a  class="btn btn-primary" href="{{route('post.show',$item->id)}}">Show</a>
+                    </div>
+                    @endif
+                    <div class="col-md-auto">
+                        {{-- <a  class="btn btn-danger" href="{{ route('shop.hard.destroy',$item->id)}}">Hard Delete</a> --}}
+
+                        {{-- <form action="{{ route('shop.destroy',$item->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                            </form> --}}
+                    </div>
+                </div>
+
+            </td>
+          </tr>
+              @endforeach
+        </tbody>
+      </table>
+      {{ $posts->links() }}
+  </div>
+  </div>
+@endsection
