@@ -2,11 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/', function () {
     return view('welcome');
 });
-
 
 Auth::routes();
 
@@ -26,3 +24,9 @@ Route::get('product/hard/delete/{id}', 'ShopController@hardDeletes')->name('shop
 //Profile
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::get('/profile/update', 'ProfileController@update')->name('profile.update');
+
+//Post
+Route::get('/posts/trashed', 'PostController@trashed')->name('post.trashed');
+Route::get('/post/restore/{id}', 'PostController@restore')->name('post.restore');
+Route::get('/post/harddelete/{id}', 'PostController@harddelete')->name('post.harddelete');
+Route::resource('/posts', 'PostController');

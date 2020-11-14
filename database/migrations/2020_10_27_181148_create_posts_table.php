@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('photo');
             $table->integer('user_id');
             $table->string('slug');
-            $table->softDeletes();;
+            $table->softDeletes();
             $table->timestamps();
         });
     }
