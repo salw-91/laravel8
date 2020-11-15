@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
+{{-- <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0"> --}}
 @auth
-<div class="jumbotron container">
+<div class="container">
+    <div class="row">
+      <div class="col">
+<div class="jumbotron">
     <h1 class="display-4">All Products  </h1>    <p class="lead">
       <a class="btn btn-primary btn-lg" href="{{route('shop.create')}}" role="button">Create</a>
     {{-- @if (Product::all()->deleted_at !== null) --}}
@@ -26,26 +29,26 @@
 
 </div>
 
-  <div class="container">
+  <div class="col">
     <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col-md-auto">Edit</th>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="text-center">Name</th>
+            <th scope="col" class="text-center">Price</th>
+            <th scope="col" class="text-center">Edit</th>
           </tr>
         </thead>
         <tbody>
             @foreach ($products as $item )
 
           <tr>
-            <th scope="row">{{$item->id}}</th>
-            <td>{{$item->name}}</td>
-            <td>{{$item->price}} €</td>
-            {{-- <td>{{$item->detail}}</td> --}}
-            <td>
-                <div class="row">
+            <th scope="row" Sterling Heights>{{$item->id}}</th>
+            <td class="text-center">{{$item->name}}</td>
+            <td class="text-center">{{$item->price}} €</td>
+            {{-- <td class="text-center">{{$item->detail}}</td> --}}
+            <td class="text-center">
+                <div class="row justify-content-center">
                     @auth
                     <div class="col-md-auto">
                         <a class="btn btn-success" href="{{route('shop.edit',$item->id)}}">Edit</a>

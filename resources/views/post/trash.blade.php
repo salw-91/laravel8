@@ -4,7 +4,7 @@
 <div class="jumbotron container">
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <p class="lead">
-      <a class="btn btn-primary btn-lg" href="{{route('shop.index')}}" role="button">Index</a>
+      <a class="btn btn-primary btn-lg" href="{{route('posts.index')}}" role="button">Index</a>
     </p>
   </div>
   <div class="container">
@@ -26,32 +26,30 @@
     <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col-md-auto">Edit</th>
+            <th scope="col"  class="text-center">#</th>
+            <th scope="col"  class="text-center">title</th>
+            <th scope="col"  class="text-center">user</th>
+            <th scope="col"  class="text-center">photo</th>
+            <th scope="col" class="text-center">Edit</th>
           </tr>
         </thead>
         <tbody>
-            @foreach ($products as $item )
+            @foreach ($posts as $item )
 
           <tr>
-            <th scope="row">{{$item->id}}</th>
-            <td>{{$item->name}}</td>
-            <td>{{$item->price}} €</td>
-            {{-- <td>{{$item->detail}}</td> --}}
+            <th scope="row"  class="text-center">{{$item->id}}</th>
+            <td  class="text-center">{{$item->title}}</td>
+            <td  class="text-center">{{$item->user->name}}</td>
+            <td  class="text-center"><img src="{{$item->photo}}" alt="{{$item->photo}}"
+                class="img-tumbnail" width="100" height="100"></td>
+
             <td>
                 <div class="row">
                   <div class="col-md-auto">
-                        <a class="btn btn-success" href="{{route('shop.return.trash',$item->id)}}">Return</a>
-                        <a class="btn btn-danger" href="{{route('shop.hard.delete',$item->id)}}">Hard Delete</a>
+                        <a class="btn btn-success" href="{{route('post.restore',$item->id)}}">Return</a>
+                        <a class="btn btn-danger" href="{{route('post.harddelete',$item->id)}}">Hard Delete</a>
                     </div>
-                    <div class="col-md-auto">
-                        {{-- <form action="{{ route('shop.hard.destroy',$item->id)}}">
-                            @csrf
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                            </form> --}}
-                    </div>
+
                   </div>
                 </div>
 
@@ -60,6 +58,6 @@
               @endforeach
         </tbody>
       </table>
-      {{ $products->links() }}
+      {{-- {{ $posts->links() }} --}}
   </div>
 @endsection

@@ -16,13 +16,13 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->paginate(10);
-        return view('post/index', compact('posts'));
+        return view('post.index', compact('posts'));
     }
 
     public function trashed()
     {
-        $posts = Post::onlyTrashed()->paginate(10)->get();
-        return view('post/trash', compact('posts'));
+        $posts = Post::onlyTrashed()->latest()->paginate(10);
+        return view('post.trash', compact('posts'));
     }
 
     public function create()
@@ -54,53 +54,68 @@ class PostController extends Controller
 
     public function show($slug)
     {
-        $post = Post::where('slug', $slug)->first();
-        return view('post/show', compact('post'));
+        $post = Post::where('slug' , $slug )->first();
+        return view('post.show', compact('post'));
     }
 
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('post/show', compact('post'));
+        return view('post.edit', compact('post'));
     }
 
     public function update(Request $request, $id)
     {
-        $post = Post::find($id);
+        $post = Post::find( $id ) ;
         $this->validate($request,[
-            'title' => 'required',
-            'body' => 'required',
-            'photo' => 'required|image'
+            'title' =>  'required',
+            'content' =>  'required'
         ]);
-        if ($request->has('photo')) {
-            $photo = $request->photo;
-            $newPhoto = time().$photo->getClientOrginalName();
-            $photo->move('uploads/posts'.$newPhoto);
-            $post->photo = 'uploads/posts'.$newPhoto ;
-        }
-            $post->title = $request->title;
-            $post->body = $request->body;
-            $post->save;
-            return redirect()->back();
+
+     //   dd($request->all());
+
+    if ($request->has('photo')) {
+        $photo = $request->photo;
+        $newPhoto = time().$photo->getClientOriginalName();
+        $photo->move('uploads/posts',$newPhoto);
+        $post->photo ='uploads/posts/'.$newPhoto ;
+    }
+
+    $post->title = $request->title;
+    $post->content = $request->content;
+    $post->save();
+    return redirect()->back() ;
     }
 
     public function destroy($id)
     {
-        $post = Post::find($id);
+        $post = Post::where('id' , $id )->where('user_id', Auth::id())->first();
+        if ($post === null) {
+           return redirect()->back() ;
+       }
+
+        $post->delete($id);
+        return redirect()->back() ;
+    }
+
+
+    public function softDeletes($id)
+    {
+        $post = Post::where('id' , $id )->where('user_id', Auth::id())->first();
         $post->delete();
         return redirect()->back();
-
     }
     public function harddelete($id)
     {
-        $post = Post::onlyTrashed()->where('id', $id)->forceDelete();
-        return redirect()->back();
+        $post = Post::withTrashed()->where('id' ,  $id )->first() ;
+        $post->forceDelete();
+        return redirect()->back() ;
 
     }
     public function restore($id)
     {
-        $post = Post::withTrashed()->where('id' , $id)->first();
+        $post = Post::withTrashed()->where('id' ,  $id )->first() ;
         $post->restore();
-        return redirect()->back();
+        return redirect()->back() ;
     }
 }

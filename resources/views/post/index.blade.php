@@ -32,8 +32,8 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col"  class="text-center">#</th>
-            <th scope="col"  class="text-center">Name</th>
-            <th scope="col"  class="text-center">Price</th>
+            <th scope="col"  class="text-center">title</th>
+            <th scope="col"  class="text-center">user</th>
             <th scope="col"  class="text-center">photo</th>
             <th scope="col" class="text-center">Edit</th>
           </tr>
@@ -43,36 +43,15 @@
           <tr>
             <th scope="row"  class="text-center">{{$item->id}}</th>
             <td  class="text-center">{{$item->title}}</td>
-            <td  class="text-center">{{$item->body}} </td>
-            <td  class="text-center"><img src="{{URL::asset($item->photo)}}" alt="{{$item->photo}}"
+            <td  class="text-center">{{$item->user->name}}</td>
+            <td  class="text-center"><img src="{{$item->photo}}" alt="{{$item->photo}}"
                 class="img-tumbnail" width="100" height="100"></td>
 
             <td  class="text-center">
                 <div class="row justify-content-center">
-                    @auth
-                    <div class="col-md-auto">
-                        <a class="btn btn-success" href="{{route('posts.edit',$item->id)}}">Edit</a>
-                    </div>
-
-                    <div class="col-md-auto">
-                        <a  class="btn btn-primary" href="{{route('posts.show',$item->slug)}}">Show</a>
-                    </div>
-                    <div class="col-md-auto">
-                        <a  class="btn btn-warning" href="{{route('posts.destroy',$item->id)}}">Soft Delete</a>
-                    </div>
-                    @else
-                    <div class="col-md-auto">
-                        <a  class="btn btn-primary" href="{{route('posts.show',$item->slug)}}">Show</a>
-                    </div>
-                    @endif
-                    <div class="col-md-auto">
-                        {{-- <a  class="btn btn-danger" href="{{ route('shop.hard.destroy',$item->id)}}">Hard Delete</a> --}}
-
-                        {{-- <form action="{{ route('shop.destroy',$item->id)}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                            </form> --}}
+                        <a class="btn btn-success mr-2" href="{{route('posts.edit',$item->id)}}">Edit</a>
+                        <a  class="btn btn-primary mr-2" href="{{route('posts.show',$item->slug)}}">Show</a>
+                        <a  class="btn btn-warning mr-2" href="{{route('post.soft.delete',$item->id)}}">Soft Delete</a>
                     </div>
                 </div>
 

@@ -23,6 +23,7 @@
             <input type="file" name="photo">
         </div>
         <button type="submit" class="btn btn-primary">Create</button>
+        <a class="btn btn-warning" href="{{route('posts.index')}}">Back</a>
 
       </form>
     </div>

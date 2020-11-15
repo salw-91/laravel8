@@ -26,7 +26,8 @@ Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::get('/profile/update', 'ProfileController@update')->name('profile.update');
 
 //Post
-Route::get('/posts/trashed', 'PostController@trashed')->name('post.trashed');
+Route::resource('/posts', 'PostController');
+Route::get('post/soft/delete/{id}', 'PostController@softDeletes')->name('post.soft.delete');
+Route::get('/post/trashed', 'PostController@trashed')->name('post.trashed');
 Route::get('/post/restore/{id}', 'PostController@restore')->name('post.restore');
 Route::get('/post/harddelete/{id}', 'PostController@harddelete')->name('post.harddelete');
-Route::resource('/posts', 'PostController');
