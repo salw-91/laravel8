@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\Profile;
 use App\Models\Product;
+use App\Models\Post;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -18,6 +19,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        $posts = Post::all()->where('user_id', Auth::id());
         $user = Auth::user();
         $id = Auth::id();
         if ($user->profile == null) {
@@ -28,7 +30,7 @@ class ProfileController extends Controller
                 'user_id' => $id,
             ]);
         }
-        return view('profile.profile')->with('user', $user);
+        return view('profile.profile', compact('posts', 'user'));
     }
 
     public function update(Request $request)

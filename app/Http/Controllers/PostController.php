@@ -15,14 +15,16 @@ class PostController extends Controller
 
     public function index()
     {
+        $postsDeleted = Post::onlyTrashed();
         $posts = Post::latest()->paginate(10);
-        return view('post.index', compact('posts'));
+        return view('post.index', compact('posts', 'postsDeleted'));
     }
 
     public function trashed()
     {
         $posts = Post::onlyTrashed()->latest()->paginate(10);
-        return view('post.trash', compact('posts'));
+        return view('post.trash', compact('posts'))
+        ->with('success', 'Post added successflly');
     }
 
     public function create()
@@ -49,7 +51,9 @@ class PostController extends Controller
             'user_id' => Auth::id(),
             'slug' => str_slug($request->title),
         ]);
-        return redirect()->back() ;
+        return redirect()->route('posts.index')
+        ->with('success', 'Post Added Successflly');
+
     }
 
     public function show($slug)
@@ -69,7 +73,7 @@ class PostController extends Controller
         $post = Post::find( $id ) ;
         $this->validate($request,[
             'title' =>  'required',
-            'content' =>  'required'
+            'body' =>  'required'
         ]);
 
      //   dd($request->all());
@@ -78,13 +82,14 @@ class PostController extends Controller
         $photo = $request->photo;
         $newPhoto = time().$photo->getClientOriginalName();
         $photo->move('uploads/posts',$newPhoto);
-        $post->photo ='uploads/posts/'.$newPhoto ;
+        $post->photo ='uploads/posts/'.$newPhoto;
     }
 
     $post->title = $request->title;
-    $post->content = $request->content;
+    $post->body = $request->body;
     $post->save();
-    return redirect()->back() ;
+    return redirect()->back()
+    ->with('success', 'Post Updated successflly');
     }
 
     public function destroy($id)
@@ -103,7 +108,7 @@ class PostController extends Controller
     {
         $post = Post::where('id' , $id )->where('user_id', Auth::id())->first();
         $post->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success_delete', 'Post soft deleted successflly.');;
     }
     public function harddelete($id)
     {

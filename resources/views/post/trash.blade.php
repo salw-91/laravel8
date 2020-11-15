@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="jumbotron container">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="jumbotron">
+            <h1 class="display-4">All Deleted Posts  </h1>
       <a class="btn btn-primary btn-lg" href="{{route('posts.index')}}" role="button">Index</a>
     </p>
   </div>
@@ -40,7 +42,7 @@
             <th scope="row"  class="text-center">{{$item->id}}</th>
             <td  class="text-center">{{$item->title}}</td>
             <td  class="text-center">{{$item->user->name}}</td>
-            <td  class="text-center"><img src="{{$item->photo}}" alt="{{$item->photo}}"
+            <td  class="text-center"><img src="{{URL::asset($item->photo)}}" alt="{{$item->photo}}"
                 class="img-tumbnail" width="100" height="100"></td>
 
             <td>

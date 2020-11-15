@@ -4,10 +4,21 @@
 
 <div class="container pt-4">
     <div class="card">
+
+        @if (count($errors) > 0)
+        <ul>
+            @foreach ($errors->all() as $item)
+                <li>
+                    {{$item}}
+                </li>
+            @endforeach
+        </ul>
+        @endif
+
         <div class="card-body">
           Edit Post.
           {{$post->title}}
-        <form action="{{route('posts.update', $post->id )}}" method="POST">
+          <form action="{{route('posts.update',$post->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group col-4">
