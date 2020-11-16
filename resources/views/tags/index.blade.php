@@ -66,13 +66,6 @@
                     </div>
                     @endif
                     <div class="col-md-auto">
-                        {{-- <a  class="btn btn-danger" href="{{ route('shop.hard.destroy',$item->id)}}">Hard Delete</a> --}}
-
-                        {{-- <form action="{{ route('shop.destroy',$item->id)}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                            </form> --}}
                     </div>
                 </div>
 
@@ -81,7 +74,6 @@
               @endforeach
         </tbody>
       </table>
-      {{ $products->links() }}
   </div>
   </div>
 @endsection
