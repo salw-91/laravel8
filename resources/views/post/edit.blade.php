@@ -25,6 +25,21 @@
           <label>Title</label>
           <input type="text" name="title" value="{{$post->title}}" class="form-control" placeholder="Text">
         </div>
+
+        @foreach ($tags as $item)
+        <input type="checkbox" name="tag[]"
+            value="{{$item->id}}"
+
+        @foreach ($post->tag as $item2 )
+            @if ($item->id == $item2->id)
+            checked
+            @endif
+        @endforeach
+
+        placeholder="Text">
+        <label >{{$item->tag}}</label>
+        @endforeach
+
         <div class="form-group col-4">
           <label>Body</label>
           <input type="text" name="body" value="{{$post->body}}" class="form-control" placeholder="Text">

@@ -15,11 +15,20 @@
             </div>
             <ul class="list-group list-group-flush">
 
+                <li class="list-group-item"><p class="card-text">Tag :
+
+                    @foreach ($tags as $item)
+
+                    {{$item->tag}}
+
+                    @endforeach
+
+                </li>
                 <li class="list-group-item"><p class="card-text">Created at: {{$post->user->name}}</p></li>
                 <li class="list-group-item"><p class="card-text">Created at: {{$post->created_at->diffForhumans()}}</p></li>
                 <li class="list-group-item"><p class="card-text">Updated at: {{$post->updated_at->diffForhumans()}}</p></li>
                 </ul>
-                
+
             <button type="submit" class="btn btn-primary">Back</button>
           </div>
 

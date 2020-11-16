@@ -18,6 +18,14 @@
           <input type="text" name="body" class="form-control" placeholder="Text">
         </div>
         <div class="form-group">
+            <label for="exampleFormControlInput1">Tags:</label>
+        @foreach ($tags as $item)
+        <input type="checkbox" name="tag[]" value="{{ $item->id}}" placeholder="Text">
+        <label >{{$item->tag}}</label>
+        @endforeach
+        </div>
+
+        <div class="form-group">
             <label for="myfile">Select a Photo:</label>
             <br>
             <input type="file" name="photo">

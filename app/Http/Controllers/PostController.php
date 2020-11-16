@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -15,21 +16,26 @@ class PostController extends Controller
 
     public function index()
     {
-        $postsDeleted = Post::onlyTrashed();
+        $tags = Tag::orderBy('created_at', 'DESC')->get();
+        $postsDeleted = Post::onlyTrashed()->where('user_id', Auth::id());
         $posts = Post::latest()->paginate(10);
         return view('post.index', compact('posts', 'postsDeleted'));
     }
 
     public function trashed()
     {
-        $posts = Post::onlyTrashed()->latest()->paginate(10);
+        $posts = Post::onlyTrashed()->where('user_id', Auth::id())->latest()->paginate(10);
         return view('post.trash', compact('posts'))
         ->with('success', 'Post added successflly');
     }
 
     public function create()
     {
-        return view('post.create');
+        $tags = Tag::all();
+        if ($tags->count() == 0 ) {
+            return redirect()->route('post.create');
+        }
+        return view('post.create', compact('tags'));
     }
 
     public function store(Request $request)
@@ -37,6 +43,7 @@ class PostController extends Controller
         $this->validate($request,[
             'title' => 'required',
             'body' => 'required',
+            'tag' => 'required',
             'photo' => 'required|image',
         ]);
 
@@ -51,6 +58,7 @@ class PostController extends Controller
             'user_id' => Auth::id(),
             'slug' => str_slug($request->title),
         ]);
+        $posts->tag()->attach($request->tag);
         return redirect()->route('posts.index')
         ->with('success', 'Post Added Successflly');
 
@@ -58,14 +66,19 @@ class PostController extends Controller
 
     public function show($slug)
     {
+        $tags = Tag::all();
         $post = Post::where('slug' , $slug )->first();
-        return view('post.show', compact('post'));
+        return view('post.show', compact('post', 'tags'));
     }
 
     public function edit($id)
     {
-        $post = Post::find($id);
-        return view('post.edit', compact('post'));
+        $tags = Tag::all();
+        $post = Post::where('id', $id)->where('user_id', Auth::id())->first();
+        if ($post === null) {
+            return redirect()->back();
+        };
+        return view('post.edit', compact('post','tags'));
     }
 
     public function update(Request $request, $id)
@@ -88,6 +101,8 @@ class PostController extends Controller
     $post->title = $request->title;
     $post->body = $request->body;
     $post->save();
+    $post->tag()->sync($request->tag);
+
     return redirect()->back()
     ->with('success', 'Post Updated successflly');
     }
@@ -112,14 +127,14 @@ class PostController extends Controller
     }
     public function harddelete($id)
     {
-        $post = Post::withTrashed()->where('id' ,  $id )->first() ;
+        $post = Post::withTrashed()->where('id' ,  $id )->where('user_id', Auth::id())->first();
         $post->forceDelete();
         return redirect()->back() ;
 
     }
     public function restore($id)
     {
-        $post = Post::withTrashed()->where('id' ,  $id )->first() ;
+        $post = Post::withTrashed()->where('id' ,  $id )->where('user_id', Auth::id())->first();
         $post->restore();
         return redirect()->back() ;
     }

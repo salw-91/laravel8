@@ -7,46 +7,31 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $tags = Tag::all();
-        return view('tags.index', compact('tags'))
+        $tags = Tag::orderBy('tag')->get();
+        return view('tags.index', compact('tags'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('tags.create');
-
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
             'tag' => 'required',
-
         ]);
+
         $tag = Tag::create([
             'tag' => $request->tag,
-
         ]);
-        return redirect()->back()
-        ->with('success', 'Tag Added Successflly');
+
+        $tags = Tag::create($request->all());
+        return redirect()->route('tags.index')
+            ->with('success', 'Tag added successflly');
     }
 
     public function edit( $id)
@@ -64,15 +49,15 @@ class TagController extends Controller
 
     $tag->tag = $request->tag;
     $tag->save();
-    return redirect()->back()
-    ->with('success', 'Tag Updated successflly');
+    $tags =  Tag::all();
+        return redirect()->route('tags')
+            ->with('success', 'Tag added successflly');
     }
 
-    public function destroy(Tag $tag)
+    public function destroy($id)
     {
         $tag = Tag::find($id);
-
         $tag->destroy($id);
-        return redirect()->back() ;
+        return redirect()->back() ->with('success_delete', 'Tag deteled successflly') ;
     }
 }

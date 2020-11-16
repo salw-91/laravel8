@@ -43,7 +43,7 @@
             @foreach ($products as $item )
 
           <tr>
-            <th scope="row" Sterling Heights>{{$item->id}}</th>
+            <th scope="row">{{$item->id}}</th>
             <td class="text-center">{{$item->name}}</td>
             <td class="text-center">{{$item->price}} €</td>
             {{-- <td class="text-center">{{$item->detail}}</td> --}}

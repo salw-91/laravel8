@@ -22,4 +22,8 @@ class Post extends Model
     {
         return asset($photo);
     }
+    public function tag()
+    {
+        return $this->belongsToMany('App\Models\Tag');
+    }
 }

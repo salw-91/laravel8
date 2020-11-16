@@ -19,7 +19,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    
+
     {{-- Font Awesome --}}
     <script src="https://kit.fontawesome.com/156ac59753.js" crossorigin="anonymous"></script>
     <style>
@@ -132,6 +132,9 @@
                 </a>
                 <a class="navbar-brand" href="{{ url('/posts') }}">
                     Post
+                </a>
+                <a class="navbar-brand" href="{{ url('/tags') }}">
+                    Tag
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
