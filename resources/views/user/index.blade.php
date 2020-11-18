@@ -52,10 +52,10 @@
 
             <td class="text-center">
                 <div class="row justify-content-center">
-{{--
+
                     <div class="col-md-auto">
-                        <a class="btn btn-success" href="{{route('tag.edit',$item->id)}}">Edit</a>
-                    </div> --}}
+                        <a class="btn btn-success" href="{{route('user.edit',$item->id)}}">Edit</a>
+                    </div>
 
                     <div class="col-md-auto">
                         <a  class="btn btn-warning" href="{{route('user.destroy',$item->id)}}" method="DELETE">Delete</a>

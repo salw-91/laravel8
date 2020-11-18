@@ -65,8 +65,7 @@
 					</div>
 					<div class="text-center p-t-136">
                         <a class="txt2" href="{{ route('users') }}">
-                            <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
-
+                            
 							Go Back
 						</a>
 					</div>

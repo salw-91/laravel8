@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+
 use App\Models\User;
+use App\Models\Post;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,7 +19,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('created_at','desc')->get();
         return view('user.index', compact('users'));
     }
 
@@ -59,26 +62,18 @@ class UserController extends Controller
             return redirect()->route('users');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        $posts = Post::all()->where('user_id', $user->id);
+        return view('user.edit', compact('user','posts'));
     }
 
     /**
@@ -90,7 +85,24 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required',
+            'telefoon'    => 'required',
+            'bio'	   => 'required',
+            'link'	   => 'required',
+        ]);
+
+        $user->name = $request->name ;
+        $user->email = $request->email ;
+        $user->profile->telefoon = $request->telefoon ;
+        $user->profile->bio = $request->bio ;
+        $user->profile->link = $request->link ;
+        $user->save();
+        $user->profile->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -101,11 +113,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        // $user =  User::find($id);
-        // $user->profile->delete($id);
-        // $user->delete();
-        // return redirect()->route('users');
-
         $user = User::find($id);
         $user->profile->delete($id);
         $user->delete();

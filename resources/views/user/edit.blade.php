@@ -4,7 +4,8 @@
 
     <div class="container emp-profile">
         <div class="card">
-            <form action="{{ route('profile.update')}}">
+            <form action="{{ route('user.update',$user->id)}}" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
@@ -19,7 +20,7 @@
                     <div class="col-md-6">
                         <div class="profile-head">
                             <h5>
-                                {{ Auth::user()->name }}
+                                {{ $user->name }}
                             </h5>
                             <h6>
                                 Web Developer and Designer
@@ -47,7 +48,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-work">
-                            <p>All posts of {{ Auth::user()->name }}</p>
+                            <p>All posts of {{ $user->name }}</p>
 
                             @foreach ($posts as $item)
                                 <a href="{{ route('posts.show', $item->slug) }}">{{ $item->title }}</a>
@@ -70,7 +71,7 @@
                                         <label>Name</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>{{ Auth::user()->name }}</p>
+                                        <p>{{ $user->name }}</p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -78,7 +79,7 @@
                                         <label>Email</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>{{ Auth::user()->email }}</p>
+                                        <p>{{ $user->email }}</p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -113,7 +114,7 @@
                                             <label>Name</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="test" name="name" value="{{ Auth::user()->name }}">
+                                            <input type="test" name="name" value="{{ $user->name }}">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -121,7 +122,7 @@
                                             <label>Email</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="email" name="email" value="{{ Auth::user()->email }}">
+                                            <input type="email" name="email" value="{{ $user->email }}">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -148,8 +149,7 @@
                                         <div class="col-md-6">
                                             <textarea name="link" id="" cols="23"
                                                 rows="4">{!!  $user->profile->link !!}</textarea>
-                                            {{-- <input type="text" name="link" value="">
-                                            --}}
+
                                         </div>
                                         @if (Route::has('password.request'))
                                             <a class="profile-edit-btn" href="{{ route('password.request') }}">
