@@ -53,12 +53,16 @@
                                 <a href="{{ route('posts.show', $item->slug) }}">{{ $item->title }}</a>
                             @endforeach
                             <p>SKILLS</p>
-                            <a href="">Web Designer</a><br />
+                            @foreach ($skills as $item)
+                                <a href="{{ route('posts.index') }}">{{ $item->skill }}</a>
+                            @endforeach
+
+                            {{-- <a href="">Web Designer</a><br />
                             <a href="">Web Developer</a><br />
                             <a href="">WordPress</a><br />
                             <a href="">WooCommerce</a><br />
                             <a href="">PHP</a><br />
-                            <a href="">.Net</a><br />
+                            <a href="">.Net</a><br /> --}}
 
                         </div>
                     </div>
@@ -148,8 +152,23 @@
                                         <div class="col-md-6">
                                             <textarea name="link" id="" cols="23"
                                                 rows="4">{!!  $user->profile->link !!}</textarea>
-                                            {{-- <input type="text" name="link" value="">
-                                            --}}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Skills</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @foreach ($skills as $item)
+                                            <input type="checkbox" name="skills[]" value="{{ $item->id}}"
+
+                                            @foreach ($user->skill as $item2 )
+                                                @if ($item->id == $item2->id)
+                                                checked
+                                                @endif
+                                            @endforeach
+
+                                            placeholder="Text">
+                                            <label >{{$item->skill}}</label>
+                                            @endforeach
                                         </div>
                                         @if (Route::has('password.request'))
                                             <a class="profile-edit-btn" href="{{ route('password.request') }}">

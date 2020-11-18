@@ -48,3 +48,11 @@ Route::post('/user/store', 'UserController@store' )->name('user.store');
 Route::get('/user/edit/{id}', 'UserController@edit' )->name('user.edit');
 Route::post('/user/update/{id}', 'UserController@update' )->name('user.update');
 Route::get('/user/destroy/{id}', 'UserController@destroy' )->name('user.destroy');
+
+//Skill
+Route::get('/skills', 'SkillController@index' )->name('skills');
+Route::get('/skill/create', 'SkillController@create' )->name('skill.create');
+Route::post('/skill/store', 'SkillController@store' )->name('skill.store');
+Route::get('/skill/edit/{id}', 'SkillController@edit' )->name('skill.edit');
+Route::post('/skill/update/{id}', 'SkillController@update' )->name('skill.update');
+Route::get('/skill/destroy/{id}', 'SkillController@destroy' )->name('skill.destroy');

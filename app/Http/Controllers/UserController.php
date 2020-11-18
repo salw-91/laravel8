@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 
 use App\Models\User;
+use App\Models\Skill;
 use App\Models\Post;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +31,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $skills = Skill::all();
+        if ($skills->conut() == 0) {
+            redirect()->route('skill.create');
+        }
+        return view('user.create', compact('skills'));
     }
 
     /**
@@ -42,16 +47,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request , [
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
        ]);
 
        $user =  User::create([
-        'name' => $request->name ,
-        'email' => $request->email ,
-        'password' => Hash::make($request->password ),
-    ]);
+            'name' => $request->name ,
+            'email' => $request->email ,
+            'password' => Hash::make($request->password ),
+        ]);
 
         $profile = Profile::create([
                 'telefoon' => '0685554440',
@@ -59,6 +64,7 @@ class UserController extends Controller
                 'link' => 'https://www.wikipedia.org/',
                 'user_id' => $user->id,
             ]);
+        $user->skill()->attach($request->skills);
             return redirect()->route('users');
     }
 

@@ -7,6 +7,7 @@ use Auth;
 use App\Models\Profile;
 use App\Models\Product;
 use App\Models\Post;
+use App\Models\Skill;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -16,12 +17,16 @@ class ProfileController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         $posts = Post::all()->where('user_id', Auth::id());
         $user = Auth::user();
         $id = Auth::id();
+        $skills = Skill::all();
+        // if ($skills->conut() == 0) {
+        //     redirect()->route('skill.create');
+        // }
         if ($user->profile == null) {
             $profile = Profile::create([
                 'telefoon' => '0685554440',
@@ -30,7 +35,8 @@ class ProfileController extends Controller
                 'user_id' => $id,
             ]);
         }
-        return view('profile.profile', compact('posts', 'user'));
+
+        return view('profile.profile', compact('posts', 'user', 'skills'));
     }
 
     public function update(Request $request)
@@ -49,6 +55,7 @@ class ProfileController extends Controller
         $user->profile->telefoon = $request->telefoon ;
         $user->profile->bio = $request->bio ;
         $user->profile->link = $request->link ;
+        $user->skill()->attach($request->skills);
         $user->save();
         $user->profile->save();
 

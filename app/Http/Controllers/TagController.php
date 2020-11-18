@@ -11,7 +11,7 @@ class TagController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         $tags = Tag::orderBy('tag')->get();
@@ -62,6 +62,6 @@ class TagController extends Controller
     {
         $tag = Tag::find($id);
         $tag->destroy($id);
-        return redirect()->back() ->with('success_delete', 'Tag deteled successflly') ;
+        return redirect()->back()->with('success_delete', 'Tag deteled successflly') ;
     }
 }

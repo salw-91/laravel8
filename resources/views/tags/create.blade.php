@@ -6,8 +6,8 @@
     <div class="card">
         <div class="card-body">
           Create Tag.
-
-        <form action="{{route('tags.store')}}" method="POST">
+          
+        <form action="{{route('tag.store')}}" method="POST">
         @csrf
         <div class="form-group">
           <label for="exampleFormControlInput1">Name</label>
