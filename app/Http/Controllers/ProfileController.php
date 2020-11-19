@@ -24,9 +24,10 @@ class ProfileController extends Controller
         $user = Auth::user();
         $id = Auth::id();
         $skills = Skill::all();
-        // if ($skills->conut() == 0) {
-        //     redirect()->route('skill.create');
-        // }
+
+        if ($skills->Count() == 0) {
+            redirect()->route('skill.create');
+        }
         if ($user->profile == null) {
             $profile = Profile::create([
                 'telefoon' => '0685554440',
@@ -55,7 +56,7 @@ class ProfileController extends Controller
         $user->profile->telefoon = $request->telefoon ;
         $user->profile->bio = $request->bio ;
         $user->profile->link = $request->link ;
-        $user->skill()->attach($request->skills);
+        $user->skill()->sync($request->skills);
         $user->save();
         $user->profile->save();
 

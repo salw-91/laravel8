@@ -47,15 +47,16 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-work">
-                            <p>All posts of {{ Auth::user()->name }}</p>
+                            <p>All POSTS OF {{ Auth::user()->name }}</p>
 
                             @foreach ($posts as $item)
                                 <a href="{{ route('posts.show', $item->slug) }}">{{ $item->title }}</a>
                             @endforeach
-                            <p>SKILLS</p>
-                            @foreach ($skills as $item)
-                                <a href="{{ route('posts.index') }}">{{ $item->skill }}</a>
+                            <p>All SKILLS OF {{ Auth::user()->name }}</p>
+                            @foreach ($user->skill as $item)
+                                <a>{{ $item->skill }}</a>
                             @endforeach
+
 
                             {{-- <a href="">Web Designer</a><br />
                             <a href="">Web Developer</a><br />
@@ -159,13 +160,11 @@
                                         <div class="col-md-6">
                                             @foreach ($skills as $item)
                                             <input type="checkbox" name="skills[]" value="{{ $item->id}}"
-
                                             @foreach ($user->skill as $item2 )
                                                 @if ($item->id == $item2->id)
                                                 checked
                                                 @endif
                                             @endforeach
-
                                             placeholder="Text">
                                             <label >{{$item->skill}}</label>
                                             @endforeach

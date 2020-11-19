@@ -65,7 +65,7 @@
 					</div>
 					<div class="text-center p-t-136">
                         <a class="txt2" href="{{ route('users') }}">
-                            
+
 							Go Back
 						</a>
 					</div>
