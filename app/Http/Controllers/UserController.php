@@ -32,7 +32,7 @@ class UserController extends Controller
     public function create()
     {
         $skills = Skill::all();
-        if ($skills->conut() == 0) {
+        if ($skills->count() == 0) {
             redirect()->route('skill.create');
         }
         return view('user.create', compact('skills'));
