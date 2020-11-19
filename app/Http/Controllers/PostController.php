@@ -32,9 +32,9 @@ class PostController extends Controller
     public function create()
     {
         $tags = Tag::all();
-        if ($tags->count() == 0 ) {
-            return redirect()->route('post.create');
-        }
+        // if ($tags->count() == 0 ) {
+        //     $tags = ('No Tags find.');
+        // }
         return view('post.create', compact('tags'));
     }
 
@@ -43,23 +43,23 @@ class PostController extends Controller
         $this->validate($request,[
             'title' => 'required',
             'body' => 'required',
-            'tag' => 'required',
-            'photo' => 'required|image',
         ]);
+        if ($request->photo) {
+            $photo = $request->photo;
+            $newPhoto = time().$photo->getClientOriginalName();
+            $photo->move('uploads/posts',$newPhoto);
+        }
 
-        $photo = $request->photo;
-        $newPhoto = time().$photo->getClientOriginalName();
-        $photo->move('uploads/posts',$newPhoto);
 
         $posts = Post::create([
             'title' => $request->title,
             'body' => $request->body,
-            'photo' =>  'uploads/posts/'.$newPhoto,
+            // 'photo' =>  'uploads/posts/'.$newPhoto,
             'user_id' => Auth::id(),
             'slug' => str_slug($request->title),
         ]);
         $posts->tag()->attach($request->tag);
-        return redirect()->route('posts.index')
+        return redirect()->route('post.index')
         ->with('success', 'Post Added Successflly');
 
     }

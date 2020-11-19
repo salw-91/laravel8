@@ -18,7 +18,7 @@
 
 
         <div class="card-body">
-          Create Tag.
+          Create Skill.
 
         <form action="{{route('skill.store')}}"  method="POST">
         @csrf

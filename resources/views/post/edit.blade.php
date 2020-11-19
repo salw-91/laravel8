@@ -18,41 +18,32 @@
         <div class="card-body">
           Edit Post.
           {{$post->title}}
-          <form action="{{route('posts.update',$post->id)}}" method="POST" enctype="multipart/form-data">
+          <form action="{{route('post.update',$post->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <div class="form-group col-4">
-          <label>Title</label>
-          <input type="text" name="title" value="{{$post->title}}" class="form-control" placeholder="Text">
-        </div>
-
-        @foreach ($tags as $item)
-        <input type="checkbox" name="tag[]"
-            value="{{$item->id}}"
-
-        @foreach ($post->tag as $item2 )
-            @if ($item->id == $item2->id)
-            checked
+        <div class="card" style="width: 18rem;">
+            @if ($post->photo)
+            <img class="card-img-top" src="{{ $post->photo }}" alt="Card image cap">
             @endif
-        @endforeach
+            <div class="card-body">
+                Title:
+                <input type="text" name="title" value="{{ $post->title }}">
+                <br>
+                Body:
+                <input type="text" name="body" value="{{ $post->body }}">
+            </div>
+            <ul class="list-group list-group-flush">
 
-        placeholder="Text">
-        <label >{{$item->tag}}</label>
-        @endforeach
-
-        <div class="form-group col-4">
-          <label>Body</label>
-          <input type="text" name="body" value="{{$post->body}}" class="form-control" placeholder="Text">
-        </div>
-        <div class="form-group">
-            <label for="myfile">Select a Photo:</label>
-            <br>
-            <input type="file" name="photo">
-
-        </div>
-        <div>
-            <img src="{{URL::asset($post->photo)}}" alt="{{$post->photo}}"
-          class="img-tumbnail"  width="25%" height="25%">
+                <li class="list-group-item">
+                    <p class="card-text">Created at: {{ $post->user->name }}</p>
+                </li>
+                <li class="list-group-item">
+                    <p class="card-text">Created at: {{ $post->created_at->diffForhumans() }}</p>
+                </li>
+                <li class="list-group-item">
+                    <p class="card-text">Updated at: {{ $post->updated_at->diffForhumans() }}</p>
+                </li>
+            </ul>
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Update</button>
