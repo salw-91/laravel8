@@ -73,12 +73,13 @@ class PostController extends Controller
 
     public function edit($id)
     {
+        $user = Auth::user();
         $tags = Tag::all();
         $post = Post::where('id', $id)->where('user_id', Auth::id())->first();
         if ($post === null) {
             return redirect()->back();
         };
-        return view('post.edit', compact('post','tags'));
+        return view('post.edit', compact('post','tags', 'user'));
     }
 
     public function update(Request $request, $id)
@@ -95,13 +96,13 @@ class PostController extends Controller
         $photo = $request->photo;
         $newPhoto = time().$photo->getClientOriginalName();
         $photo->move('uploads/posts',$newPhoto);
-        $post->photo ='uploads/posts/'.$newPhoto;
+        $post->photo ='uploads/posts/'.$newPhoto ;
     }
 
     $post->title = $request->title;
     $post->body = $request->body;
     $post->save();
-    $post->tag()->sync($request->tag);
+    $post->tag()->sync($request->tags);
 
     return redirect()->back()
     ->with('success', 'Post Updated successflly');
