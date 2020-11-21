@@ -162,6 +162,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label>Sort</label>
+                                            @if ($user->sort_id == 0)
+                                                <label class="text-danger">You don't have Sort Account yet.</label>
+                                            @endif
                                         </div>
                                         <div class="col-md-6">
                                             @if ($user->sort_id == 0)
