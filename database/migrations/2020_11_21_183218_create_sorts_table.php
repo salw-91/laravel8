@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SkillUser extends Migration
+class CreateSortsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class SkillUser extends Migration
      */
     public function up()
     {
-        Schema::create('skill_user', function (Blueprint $table) {
+        Schema::create('sorts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('skill_id');
-            $table->integer('user_id');
+            $table->string('sort')->unique()->default('New');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class SkillUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skill_user');
+        Schema::dropIfExists('sorts');
     }
 }

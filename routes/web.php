@@ -62,3 +62,11 @@ Route::post('/skill/store', 'SkillController@store' )->name('skill.store');
 Route::get('/skill/edit/{id}', 'SkillController@edit' )->name('skill.edit');
 Route::post('/skill/update/{id}', 'SkillController@update' )->name('skill.update');
 Route::get('/skill/destroy/{id}', 'SkillController@destroy' )->name('skill.destroy');
+
+//Sort
+Route::get('/sorts', 'SortController@index')->name('sorts');
+Route::get('/sort/create', 'SortController@create')->name('sort.create');
+Route::post('/sort/store', 'SortController@store')->name('sort.store');
+Route::get('/sort/edit/{id}', 'SortController@edit')->name('sort.edit');
+Route::post('/sort/update/{id}', 'SortController@update')->name('sort.update');
+Route::get('/sort/destroy/{id}', 'SortController@destroy')->name('sort.destroy');

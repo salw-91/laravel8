@@ -4,7 +4,7 @@
 
     <div class="container emp-profile">
         <div class="card">
-            <form action="{{ route('profile.update')}}">
+            <form action="{{ route('profile.update') }}">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
@@ -151,15 +151,36 @@
                                         </div>
                                         <div class="col-md-6">
                                             @foreach ($skills as $item)
-                                            <input type="checkbox" name="skills[]" value="{{ $item->id}}"
-                                            @foreach ($user->skill as $item2 )
+                                                <input type="checkbox" name="skills[]" value="{{ $item->id }}" @foreach ($user->skill as $item2)
                                                 @if ($item->id == $item2->id)
-                                                checked
+                                                    checked
                                                 @endif
                                             @endforeach
                                             placeholder="Text">
-                                            <label >{{$item->skill}}</label>
+                                            <label>{{ $item->skill }}</label>
                                             @endforeach
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Sort</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @if ($user->sort_id == 0)
+                                                @foreach ($sorts as $item)
+                                                    <input type="radio" name="sort" value="{{ $item->id }}"
+                                                        placeholder="Text">
+                                                    <label>{{ $item->sort }}</label>
+                                                @endforeach
+                                            @else
+                                                @foreach ($sorts as $item)
+                                                    <input type="radio" name="sort" value="{{ $item->id }}"
+                                                    @if ($item->id == $user->sort_id)
+                                                        checked
+                                                    @endif
+                                                placeholder="Text">
+                                                <label>{{ $item->sort }}</label>
+                                            @endforeach
+                                            @endif
+
                                         </div>
                                         @if (Route::has('password.request'))
                                             <a class="profile-edit-btn" href="{{ route('password.request') }}">

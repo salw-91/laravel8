@@ -8,6 +8,7 @@ use App\Models\Profile;
 use App\Models\Product;
 use App\Models\Post;
 use App\Models\Skill;
+use App\Models\Sort;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -22,8 +23,8 @@ class ProfileController extends Controller
     {
         $posts = Post::all()->where('user_id', Auth::id());
         $user = Auth::user();
-        $id = Auth::id();
         $skills = Skill::all();
+        $sorts = Sort::all();
 
         if ($skills->Count() == 0) {
             redirect()->route('skill.create');
@@ -33,11 +34,11 @@ class ProfileController extends Controller
                 'telefoon' => '0685554440',
                 'bio' => 'Hello world',
                 'link' => 'https://www.wikipedia.org/',
-                'user_id' => $id,
+                'user_id' => $user->id,
             ]);
         }
 
-        return view('profile.profile', compact('posts', 'user', 'skills'));
+        return view('profile.profile', compact('posts', 'user', 'skills', 'sorts'));
     }
 
     public function update(Request $request)
@@ -45,6 +46,7 @@ class ProfileController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'email' => 'required',
+            'sort' => 'required',
             'telefoon'    => 'required',
             'bio'	   => 'required',
             'link'	   => 'required',
@@ -53,6 +55,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $user->name = $request->name ;
         $user->email = $request->email ;
+        $user->sort_id = $request->sort ;
         $user->profile->telefoon = $request->telefoon ;
         $user->profile->bio = $request->bio ;
         $user->profile->link = $request->link ;

@@ -169,6 +169,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('users') }}">Users</a>
+                                    <a class="dropdown-item" href="{{ route('sorts') }}">Sorts</a>
                                     <a class="dropdown-item" href="{{ route('skills') }}">Skills</a>
                                     <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

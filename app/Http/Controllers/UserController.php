@@ -77,9 +77,10 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        $skills = Skill::all();
         $user = User::find($id);
         $posts = Post::all()->where('user_id', $user->id);
-        return view('user.edit', compact('user','posts'));
+        return view('user.edit', compact('user','posts', 'skills'));
     }
 
     /**

@@ -49,5 +49,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Skill');
     }
+    public function sort()
+    {
+        return $this->belongsToMany('App\Models\Sort');
+    }
 
 }

@@ -4,7 +4,7 @@
 
     <div class="container emp-profile">
         <div class="card">
-            <form action="{{ route('user.update',$user->id)}}" method="POST">
+            <form action="{{ route('user.update', $user->id) }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-4">
@@ -146,8 +146,23 @@
                                         <div class="col-md-6">
                                             <textarea name="link" id="" cols="23"
                                                 rows="4">{!!  $user->profile->link !!}</textarea>
-
                                         </div>
+
+                                        <div class="col-md-6">
+                                            <label>Skills</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @foreach ($skills as $item)
+                                                <input type="checkbox" name="skills[]" value="{{ $item->id }}" @foreach ($user->skill as $item2)
+                                                @if ($item->id == $item2->id)
+                                                    checked
+                                                @endif
+                                            @endforeach
+                                            placeholder="Text">
+                                            <label>{{ $item->skill }}</label>
+                                            @endforeach
+                                        </div>
+
                                         @if (Route::has('password.request'))
                                             <a class="profile-edit-btn" href="{{ route('password.request') }}">
                                                 {{ __('Forgot Your Password?') }}
