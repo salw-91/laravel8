@@ -54,12 +54,12 @@ class PostController extends Controller
         $posts = Post::create([
             'title' => $request->title,
             'body' => $request->body,
-            // 'photo' =>  'uploads/posts/'.$newPhoto,
+            'photo' =>  'uploads/posts/'.$newPhoto,
             'user_id' => Auth::id(),
             'slug' => str_slug($request->title),
         ]);
         $posts->tag()->attach($request->tag);
-        return redirect()->route('post.index')
+        return redirect()->back()
         ->with('success', 'Post Added Successflly');
 
     }

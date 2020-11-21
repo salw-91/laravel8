@@ -2,54 +2,61 @@
 
 @section('content')
 
-<div class="container pt-4">
-    <div class="card">
+    <div class="container pt-4">
+        <div class="card">
 
-        @if (count($errors) > 0)
-        <ul>
-            @foreach ($errors->all() as $item)
-                <li>
-                    {{$item}}
-                </li>
-            @endforeach
-        </ul>
-        @endif
-
-        <div class="card-body">
-          Edit Post.
-          {{$post->title}}
-          <form action="{{route('post.update',$post->id)}}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="card" style="width: 18rem;">
-            @if ($post->photo)
-            <img class="card-img-top" src="{{ $post->photo }}" alt="Card image cap">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-primary" role="alert">
+                    {{ $message }}
+                </div>
             @endif
+            @if ($message = Session::get('success_delete'))
+                <div class="alert alert-danger" role="alert">
+                    {{ $message }}
+                </div>
+            @endif
+
             <div class="card-body">
-                Title:
-                <input type="text" name="title" value="{{ $post->title }}">
-                <br>
-                Body:
-                <input type="text" name="body" value="{{ $post->body }}">
+                Edit Post.
+                <form action="{{ route('post.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label>Title:</label>
+                        <input type="text" name="title" value="{{ $post->title }}" class="form-control" placeholder="Apply">
+                    </div>
+                    <div class="form-group">
+                        <label>Body:</label>
+                        <input type="text" name="body" value="{{ $post->body }}" class="form-control" placeholder="Text">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tags: <a class="btn btn-success btn-sm" href="{{ route('tag.create') }}">Create Tag</a>
+
+                        </label>
+                        @foreach ($tags as $item)
+                            <input type="checkbox" name="tag[]" value="{{ $item->id }}" @foreach ($user->skill as $item2)
+                            @if ($item->id == $item2->id)
+                                checked
+                            @endif
+                        @endforeach
+
+                        placeholder="Text">
+                        <label>{{ $item->tag }}</label>
+                        @endforeach
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="myfile">Select a Photo:</label>
+                        <br>
+                        <input type="file" name="photo">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a class="btn btn-warning" href="{{ route('posts') }}">Back</a>
+
+                </form>
             </div>
-            <ul class="list-group list-group-flush">
-
-                <li class="list-group-item">
-                    <p class="card-text">Created at: {{ $post->user->name }}</p>
-                </li>
-                <li class="list-group-item">
-                    <p class="card-text">Created at: {{ $post->created_at->diffForhumans() }}</p>
-                </li>
-                <li class="list-group-item">
-                    <p class="card-text">Updated at: {{ $post->updated_at->diffForhumans() }}</p>
-                </li>
-            </ul>
         </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Update</button>
 
-      </form>
-    </div>
-</div>
-
-@endsection
+    @endsection

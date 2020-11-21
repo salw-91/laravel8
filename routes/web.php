@@ -29,7 +29,7 @@ Route::get('/profile/update', 'ProfileController@update')->name('profile.update'
 Route::get('/posts', 'PostController@index' )->name('posts');
 Route::get('/post/create', 'PostController@create' )->name('post.create');
 Route::post('/post/store', 'PostController@store' )->name('post.store');
-Route::post('/post/show/{slug}', 'PostController@show' )->name('post.show');
+Route::get('/post/show/{slug}', 'PostController@show' )->name('post.show');
 Route::get('/post/edit/{id}', 'PostController@edit' )->name('post.edit');
 Route::post('/post/update/{id}', 'PostController@update' )->name('post.update');
 Route::get('/post/destroy/{id}', 'PostController@destroy' )->name('post.destroy');

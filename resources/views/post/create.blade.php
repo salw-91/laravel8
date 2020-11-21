@@ -4,6 +4,18 @@
 
 <div class="container pt-4">
     <div class="card">
+
+        @if ($message = Session::get('success'))
+        <div class="alert alert-primary" role="alert">
+            {{ $message }}
+        </div>
+    @endif
+    @if ($message = Session::get('success_delete'))
+        <div class="alert alert-danger" role="alert">
+            {{ $message }}
+        </div>
+    @endif
+
         <div class="card-body">
           Create Post.
 

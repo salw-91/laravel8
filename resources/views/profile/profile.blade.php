@@ -50,20 +50,12 @@
                             <p>All POSTS OF {{ Auth::user()->name }}</p>
 
                             @foreach ($posts as $item)
-                                <a href="{{ route('posts.show', $item->slug) }}">{{ $item->title }}</a>
+                                <a href="{{ route('post.show', $item->slug) }}">{{ $item->title }}</a>
                             @endforeach
                             <p>All SKILLS OF {{ Auth::user()->name }}</p>
                             @foreach ($user->skill as $item)
                                 <a>{{ $item->skill }}</a>
                             @endforeach
-
-
-                            {{-- <a href="">Web Designer</a><br />
-                            <a href="">Web Developer</a><br />
-                            <a href="">WordPress</a><br />
-                            <a href="">WooCommerce</a><br />
-                            <a href="">PHP</a><br />
-                            <a href="">.Net</a><br /> --}}
 
                         </div>
                     </div>

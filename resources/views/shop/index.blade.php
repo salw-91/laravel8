@@ -9,9 +9,9 @@
 <div class="jumbotron">
     <h1 class="display-4">All Products  </h1>    <p class="lead">
       <a class="btn btn-primary btn-lg" href="{{route('shop.create')}}" role="button">Create</a>
-    {{-- @if (Product::all()->deleted_at !== null) --}}
+      @if ($productsDeleted->count() > 0)
       <a class="btn btn-warning btn-lg" href="{{route('shop.trash')}}" role="button">Soft Deleted</a>
-    {{-- @endif --}}
+      @endif
     </p>
   </div>
 @endif

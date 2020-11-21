@@ -10,7 +10,8 @@ class ShopController extends Controller
     public function index()
     {
         $products = Product::latest()->paginate(10);
-        return view('shop.index', compact('products'));
+        $productsDeleted = Product::onlyTrashed();
+        return view('shop.index', compact('products', 'productsDeleted'));
     }
 
     public function trashedProducts()
