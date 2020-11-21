@@ -23,11 +23,21 @@
         @csrf
         <div class="form-group">
           <label>Title:</label>
-          <input type="text" name="title" class="form-control" placeholder="Apply">
+          <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Apply">
+          @error('title')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
         </div>
         <div class="form-group">
           <label>Body:</label>
-          <input type="text" name="body" class="form-control" placeholder="Text">
+          <input type="text" name="body" class="form-control @error('body') is-invalid @enderror" placeholder="Text">
+          @error('body')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
         </div>
 
         <div class="form-group">
@@ -45,7 +55,12 @@
         <div class="form-group">
             <label for="myfile">Select a Photo:</label>
             <br>
-            <input type="file" name="photo">
+            <input type="file" name="photo" class="@error('photo') is-invalid @enderror">
+            @error('photo')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
         </div>
         <button type="submit" class="btn btn-primary">Create</button>
         <a class="btn btn-warning" href="{{route('posts')}}">Back</a>

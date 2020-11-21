@@ -48,18 +48,15 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-work">
-                            <p>All posts of {{ $user->name }}</p>
+                            <p>All POSTS OF {{ $user->name }}</p>
 
                             @foreach ($posts as $item)
                                 <a href="{{ route('posts.show', $item->slug) }}">{{ $item->title }}</a>
                             @endforeach
-                            <p>SKILLS</p>
-                            <a href="">Web Designer</a><br />
-                            <a href="">Web Developer</a><br />
-                            <a href="">WordPress</a><br />
-                            <a href="">WooCommerce</a><br />
-                            <a href="">PHP</a><br />
-                            <a href="">.Net</a><br />
+                            <p>All SKILLS OF {{ $user->name }}</p>
+                            @foreach ($user->skill as $item)
+                                <a>{{ $item->skill }}</a>
+                            @endforeach
 
                         </div>
                     </div>

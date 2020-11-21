@@ -26,9 +26,7 @@
                         {{ $message }}
                     </div>
                 @endif
-
             </div>
-
 
             @foreach ($posts as $item)
 

@@ -43,13 +43,13 @@ class PostController extends Controller
         $this->validate($request,[
             'title' => 'required',
             'body' => 'required',
+            'tags' =>  'required',
+            'photo' =>  'required|image',
         ]);
-        if ($request->photo) {
-            $photo = $request->photo;
-            $newPhoto = time().$photo->getClientOriginalName();
-            $photo->move('uploads/posts',$newPhoto);
-        }
 
+        $photo = $request->photo;
+        $newPhoto = time().$photo->getClientOriginalName();
+        $photo->move('uploads/posts',$newPhoto);
 
         $posts = Post::create([
             'title' => $request->title,
@@ -58,7 +58,8 @@ class PostController extends Controller
             'user_id' => Auth::id(),
             'slug' => str_slug($request->title),
         ]);
-        $posts->tag()->attach($request->tag);
+
+        $posts->tag()->attach($request->tags);
         return redirect()->back()
         ->with('success', 'Post Added Successflly');
 

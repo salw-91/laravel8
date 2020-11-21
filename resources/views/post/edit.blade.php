@@ -17,7 +17,7 @@
             @endif
 
             <div class="card-body">
-                Edit Post.
+                Edit {{$post->id}} Post.
                 <form action="{{ route('post.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
@@ -29,21 +29,25 @@
                         <input type="text" name="body" value="{{ $post->body }}" class="form-control" placeholder="Text">
                     </div>
 
-                    <div class="form-group">
-                        <label>Tags: <a class="btn btn-success btn-sm" href="{{ route('tag.create') }}">Create Tag</a>
+                        <div class="form-group">
+                            <label>Tags: <a class="btn btn-success btn-sm" href="{{ route('tag.create') }}">Create Tag</a>
 
-                        </label>
-                        @foreach ($tags as $item)
-                            <input type="checkbox" name="tag[]" value="{{ $item->id }}" @foreach ($user->skill as $item2)
-                            @if ($item->id == $item2->id)
-                                checked
-                            @endif
-                        @endforeach
+                            @foreach ($tags as $item)
+                            <input type="checkbox" name="tags[]"
+                               value="{{$item->id}}"
 
-                        placeholder="Text">
-                        <label>{{ $item->tag }}</label>
-                        @endforeach
-                    </div>
+                               @foreach ($post->tag as $item2)
+                                   @if ($item->id == $item2->id)
+                                       checked
+                                   @endif
+                               @endforeach
+
+                               >
+
+                               <label for="">{{$item->tag}}</label>
+                            @endforeach
+
+                          </div>
 
 
 
@@ -51,8 +55,12 @@
                         <label for="myfile">Select a Photo:</label>
                         <br>
                         <input type="file" name="photo">
+
+                        <div class="card mt-4" style="width: 18rem;">
+                        <img class="card-img-top" src="{{URL::asset($post->photo)}}" alt="Card image cap">
                     </div>
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
                     <a class="btn btn-warning" href="{{ route('posts') }}">Back</a>
 
                 </form>

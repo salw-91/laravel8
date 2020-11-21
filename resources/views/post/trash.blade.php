@@ -6,7 +6,7 @@
       <div class="col">
         <div class="jumbotron">
             <h1 class="display-4">All Deleted Posts  </h1>
-      <a class="btn btn-primary btn-lg" href="{{route('posts.index')}}" role="button">Index</a>
+      <a class="btn btn-primary btn-lg" href="{{route('posts')}}" role="button">Index</a>
     </p>
   </div>
   <div class="container">
