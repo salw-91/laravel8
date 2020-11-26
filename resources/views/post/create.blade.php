@@ -45,7 +45,7 @@
 
             </label>
         @foreach ($tags as $item)
-        <input type="checkbox" name="tag[]" value="{{ $item->id}}" placeholder="Text">
+        <input type="checkbox" name="tags[]" value="{{ $item->id}}" placeholder="Text">
         <label >{{$item->tag}}</label>
         @endforeach
         </div>
