@@ -14,8 +14,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //     return 'test';
 // });
 
-// Shop
 Route::resource('shop', 'ShopController');
+
+Route::middleware('auth.basic')->group(function (){
+
+
+// Shop
 Route::get('/product/soft/delete/{id}', 'ShopController@softDeletes')->name('soft.delete');
 Route::get('/product/trash', 'ShopController@trashedProducts')->name('shop.trash');
 Route::get('/product/return/trash/{id}', 'ShopController@ReturnFromSoftDeletes')->name('shop.return.trash');
@@ -70,3 +74,4 @@ Route::post('/sort/store', 'SortController@store')->name('sort.store');
 Route::get('/sort/edit/{id}', 'SortController@edit')->name('sort.edit');
 Route::post('/sort/update/{id}', 'SortController@update')->name('sort.update');
 Route::get('/sort/destroy/{id}', 'SortController@destroy')->name('sort.destroy');
+});
